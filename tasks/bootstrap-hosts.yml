@@ -1,0 +1,17 @@
+---
+- name: Bootstrap | Add IP cluster address to hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item].ip | default(hostvars[item].ansible_host) }} {{ item }}"
+    state: present
+  register: hostsfile_changed
+  when:
+    - hostvars[item].ansible_host is defined
+  with_items: "{{ groups['all'] }}"
+
+- name: Bootstrap | Update chrooted environments
+  command: update_chrooted all
+  when:
+    - ansible_os_family in ['Altlinux']
+    - hostsfile_changed.changed

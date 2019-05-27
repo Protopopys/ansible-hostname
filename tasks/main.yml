@@ -1,0 +1,6 @@
+---
+ - include_tasks: bootstrap-hostname.yml
+   when: override_system_hostname|default(false)
+
+ - include_tasks: bootstrap-hosts.yml
+   when: override_file_hosts|default(false)
