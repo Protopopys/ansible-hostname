@@ -1,0 +1,25 @@
+---
+scenario:
+  name: alt
+
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: AltLinux8
+    box: protopopys/AltLinux8
+    memory: 512
+    cpus: 1
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

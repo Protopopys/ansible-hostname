@@ -1,11 +1,11 @@
 ---
-- name: Bootstrap | Assign inventory name to unconfigured hostnames ( non Altlinux )
+- name: Hostname | Assign inventory name to unconfigured hostnames ( non Altlinux )
   hostname:
     name: "{{ inventory_hostname }}"
   when:
     - ansible_os_family not in ['Altlinux']
 
-- name: Bootstrap | Getting hostname (Altlinux)
+- name: Hostname | Getting hostname (Altlinux)
   command: "hostname"
   failed_when: false
   changed_when: false
@@ -13,14 +13,14 @@
   when:
     - ansible_os_family in ['Altlinux']
 
-- name: Bootstrap | Assign inventory name to unconfigured hostnames (Altlinux)
+- name: Hostname | Assign inventory name to unconfigured hostnames (Altlinux)
   command: "hostnamectl set-hostname  {{ inventory_hostname }}"
   register: hostname_changed
   when:
     - ansible_os_family in ['Altlinux']
     - hostname_server.stdout != inventory_hostname
 
-- name: Bootstrap | Update hostname fact (Altlinux)
+- name: Hostname | Update hostname fact (Altlinux)
   setup:
     gather_subset: '!all'
     filter: ansible_hostname
