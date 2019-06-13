@@ -1,7 +1,7 @@
 ---
 - name: Hostname | Assign inventory name to unconfigured hostnames ( non Altlinux )
   hostname:
-    name: "{{ inventory_hostname }}"
+    name: "{{ hostname }}"
   when:
     - ansible_os_family not in ['Altlinux']
 
@@ -14,11 +14,11 @@
     - ansible_os_family in ['Altlinux']
 
 - name: Hostname | Assign inventory name to unconfigured hostnames (Altlinux)
-  command: "hostnamectl set-hostname  {{ inventory_hostname }}"
+  command: "hostnamectl set-hostname  {{ hostname }}"
   register: hostname_changed
   when:
     - ansible_os_family in ['Altlinux']
-    - hostname_server.stdout != inventory_hostname
+    - hostname_server.stdout != {{ hostname }}
 
 - name: Hostname | Update hostname fact (Altlinux)
   setup:

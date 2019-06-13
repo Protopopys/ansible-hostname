@@ -1,6 +1,0 @@
----
-- name: Bootstrap OS
-  hosts: all
-  gather_facts: false
-  roles:
-    - role: protopopys.ansible-bootstrap-os
