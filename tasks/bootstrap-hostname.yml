@@ -19,7 +19,7 @@
   when:
     - ansible_os_family in ['Altlinux']
     - hostname_server.stdout != inventory_hostname
-
+# TODO
 - name: Bootstrap | Update hostname fact (Altlinux)
   setup:
     gather_subset: '!all'
