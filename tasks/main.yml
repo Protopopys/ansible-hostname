@@ -1,6 +1,12 @@
 ---
- - include_tasks: bootstrap-hostname.yml
-   when: override_system_hostname|default(false)
+- name: HOSTNAME | Getting facts
+  setup:
+    filter: ansible_*
 
- - include_tasks: bootstrap-hosts.yml
-   when: override_file_hosts|default(false)
+- name: HOSTNAME | Set hostname
+  include_tasks: bootstrap-hostname.yml
+  when: override_system_hostname|default(false)
+
+- name: HOSTNAME | /etc/hosts file preparation
+  include_tasks: bootstrap-hosts.yml
+  when: override_file_hosts|default(false)
